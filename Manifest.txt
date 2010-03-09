@@ -5,4 +5,8 @@ README.txt
 Rakefile
 bin/mcbean
 lib/mcbean.rb
+lib/mcbean/markdown.rb
+markdown-syntax.html
+test/helper.rb
+test/test_markdown.rb
 test/test_mcbean.rb
