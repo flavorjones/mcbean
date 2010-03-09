@@ -1,4 +1,4 @@
-= mcbean
+= McBean
 
 * http://github.com/flavorjones/mcbean
 
@@ -31,9 +31,9 @@ Or if you have an HTML document:
 
 === Side Note: Fragments vs Documents
 
-Generally speaking, unless you expect to have a DOCTYPE and a single
-root \&lt;html&\;gt node, you don't have a *document*, you have a
-*fragment*.
+Generally speaking, if you expect to have a DOCTYPE and a single root
+\&lt;html\&gt; node, you have a *document*. If you don't expect to
+have a single root node, you have a *fragment*.
 
 == REQUIREMENTS:
 

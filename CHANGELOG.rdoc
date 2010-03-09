@@ -1,0 +1,6 @@
+= Changelog
+
+== 0.1.0 (2010-03-09)
+
+* Happy Birthday!
+* Converts HTML documents into Markdown.

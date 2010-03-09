@@ -1,7 +1,8 @@
 .autotest
+CHANGELOG.rdoc
 History.txt
 Manifest.txt
-README.txt
+README.rdoc
 Rakefile
 bin/mcbean
 lib/mcbean.rb
