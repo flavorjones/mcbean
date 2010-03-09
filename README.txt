@@ -1,32 +1,53 @@
 = mcbean
 
-* FIX (url)
+* http://github.com/flavorjones/mcbean
 
 == DESCRIPTION:
 
-FIX (describe your package)
+"You can't teach a Sneetch."
+
+McBean transforms HTML into Markdown with the help of Loofah and Nokogiri.
+
+Its goal is to eventually be able to transform (with the help of other
+relevant gems) documents from HTML to Markdown to Textile, and
+anything in between. It will be the Sylvester McMonkey McBean of
+markup, placing stars onto the bellies of all kinds of document
+formats.
 
 == FEATURES/PROBLEMS:
 
-* FIX (list of features or problems)
+* Transforms HTML into Markdown.
+* Doesn't do anything else yet.
 
 == SYNOPSIS:
 
-  FIX (code sample of usage)
+If you have an HTML fragment:
+
+  McBean.fragment(your_html_string).to_markdown
+
+Or if you have an HTML document:
+
+  McBean.document(your_html_string).to_markdown
+
+=== Side Note: Fragments vs Documents
+
+Generally speaking, unless you expect to have a DOCTYPE and a single
+root \&lt;html&\;gt node, you don't have a *document*, you have a
+*fragment*.
 
 == REQUIREMENTS:
 
-* FIX (list of requirements)
+* Loofah 0.4.7 (and thusly Nokogiri)
 
 == INSTALL:
 
-* FIX (sudo gem install, anything else)
+* sudo gem install mcbean
 
 == LICENSE:
 
 (The MIT License)
 
-Copyright (c) 2010 FIX
+Copyright (c) 2010 Mike Dalessio
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
