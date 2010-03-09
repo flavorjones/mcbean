@@ -1,0 +1,8 @@
+.autotest
+History.txt
+Manifest.txt
+README.txt
+Rakefile
+bin/mcbean
+lib/mcbean.rb
+test/test_mcbean.rb
