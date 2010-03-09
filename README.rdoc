@@ -4,8 +4,6 @@
 
 == DESCRIPTION:
 
-"You can't teach a Sneetch."
-
 McBean transforms HTML into Markdown with the help of Loofah and Nokogiri.
 
 Its goal is to eventually be able to transform (with the help of other
@@ -13,6 +11,8 @@ relevant gems) documents from HTML to Markdown to Textile, and
 anything in between. It will be the Sylvester McMonkey McBean of
 markup, placing stars onto the bellies of all kinds of document
 formats.
+
+"You can't teach a Sneetch."
 
 == FEATURES/PROBLEMS:
 
