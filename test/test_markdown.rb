@@ -73,15 +73,21 @@ class TestMcBeanMarkdown < Test::Unit::TestCase
           "\nYes, magic helmet. And [I'll give you a sample](http://sample.com/).\n"
       end
 
-      should "convert <a> tags with titles to reference-style" do
-        html     = "<p>Yes, magic helmet. And <a href=\"http://sample.com/\" title=\"Fudd\">I'll give you a sample</a>.</p>"
-        markdown = "\nYes, magic helmet. And [I'll give you a sample][Fudd].\n\n[Fudd]: http://sample.com/ \"Fudd\"\n"
+      context "<a> tags with titles" do
+        should "convert fq urls to reference-style" do
+          assert_markdown2 "<p>Yes, magic helmet. And <a href=\"http://sample.com/\" title=\"Fudd\">I'll give you a sample</a>.</p>",
+                           "\nYes, magic helmet. And [I'll give you a sample][1].\n\n[1]: http://sample.com/ \"Fudd\"\n"
+        end
 
-        # note peskily absent newline at end of document. sigh.
-        assert_equal(html, BlueCloth.new(markdown).to_html, "markdown roundtrip failed")
-        assert_equal(markdown, McBean.fragment(html).to_markdown, "fragment transformation failed")
-        assert_equal(Loofah::Helpers.remove_extraneous_whitespace("\n#{markdown}"),
-          McBean.document("<div>#{html}</div>").to_markdown, "document transformation failed")
+        should "convert relative urls to reference-style" do
+          assert_markdown2 "<p>Yes, magic helmet. And <a href=\"/home\" title=\"Fudd\">I'll give you a sample</a>.</p>",
+                           "\nYes, magic helmet. And [I'll give you a sample][1].\n\n[1]: /home \"Fudd\"\n"
+        end
+
+        should "convert multiple to appear in order at the end of the document" do
+          assert_markdown2 "<p>See <a href=\"/prefs\" title=\"Prefs\">Prefs</a> and <a href=\"/home\" title=\"Home\">Home</a>.</p>",
+                "\nSee [Prefs][1] and [Home][2].\n\n[1]: /prefs \"Prefs\"\n[2]: /home \"Home\"\n"
+        end
       end
     end
   end
@@ -92,6 +98,14 @@ class TestMcBeanMarkdown < Test::Unit::TestCase
     assert_equal(html, BlueCloth.new(markdown).to_html, "markdown roundtrip failed") if roundtrip
     assert_equal(markdown, McBean.fragment(html).to_markdown, "fragment transformation failed")
     assert_equal(Loofah::Helpers.remove_extraneous_whitespace("\n#{markdown}\n"),
+      McBean.document("<div>#{html}</div>").to_markdown, "document transformation failed")
+  end
+
+  def assert_markdown2 html, markdown, roundtrip=true
+    # note peskily absent newline at end of document. sigh.
+    assert_equal(html, BlueCloth.new(markdown).to_html, "markdown roundtrip failed") if roundtrip
+    assert_equal(markdown, McBean.fragment(html).to_markdown, "fragment transformation failed")
+    assert_equal(Loofah::Helpers.remove_extraneous_whitespace("\n#{markdown}"),
       McBean.document("<div>#{html}</div>").to_markdown, "document transformation failed")
   end
 end

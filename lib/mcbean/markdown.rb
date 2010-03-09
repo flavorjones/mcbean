@@ -3,6 +3,8 @@ class McBean
   class Markdownify < Loofah::Scrubber
     def initialize
       @direction = :bottom_up
+      @link_references = nil
+      @link_reference_count = 0
     end
 
     def scrub(node)
@@ -43,9 +45,15 @@ class McBean
           end
         when "a"
           if node['title']
-            link = new_text node, "[#{node.text}][#{node['title']}]"
-            ref  = new_text node, "\n[#{node['title']}]: #{node['href']} \"#{node['title']}\"\n"
-            end_of_doc(node).add_next_sibling ref
+            unless @link_references
+              @link_references = node.document.fragment("<div>\n</div>").children.first
+              end_of_doc(node).add_next_sibling @link_references
+            end
+            @link_reference_count += 1
+            key = "#{@link_reference_count}"
+            link = new_text node, "[#{node.text}][#{key}]"
+            ref  = new_text node, "[#{key}]: #{node['href']} \"#{node['title']}\"\n"
+            @link_references.add_child ref
             link
           else
             new_text node, "[#{node.text}](#{node['href']})"
