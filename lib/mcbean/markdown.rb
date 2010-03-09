@@ -44,8 +44,8 @@ class McBean
         when "a"
           if node['title']
             link = new_text node, "[#{node.text}][#{node['title']}]"
-            ref  = new_text node, "[#{node['title']}]: #{node['href']} \"#{node['title']}\""
-            node.document.children.last.add_next_sibling ref
+            ref  = new_text node, "\n[#{node['title']}]: #{node['href']} \"#{node['title']}\"\n"
+            end_of_doc(node).add_next_sibling ref
             link
           else
             new_text node, "[#{node.text}](#{node['href']})"
@@ -67,6 +67,10 @@ class McBean
 
     def new_text(node, text)
       Nokogiri::XML::Text.new(text, node.document)
+    end
+
+    def end_of_doc(node)
+      (node.document.serialize_root || node.ancestors.last).children.last
     end
   end
 

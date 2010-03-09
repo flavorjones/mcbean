@@ -23,7 +23,8 @@ class TestMcBeanMarkdown < Test::Unit::TestCase
     end
 
     should "convert blockquote tag" do
-      assert_markdown "<blockquote><p>Hello\nGoodbye</p></blockquote>", "> Hello\n> Goodbye\n"
+      assert_markdown "<blockquote><p>Hello\nGoodbye</p></blockquote>",
+                      "> Hello\n> Goodbye\n"
     end
 
 #     should "convert nested blockquote tag" do
@@ -40,24 +41,30 @@ class TestMcBeanMarkdown < Test::Unit::TestCase
 #     end
 
     should "convert unordered list" do
-      assert_markdown "<ul>\n<li>one</li>\n<li>two</li>\n<li>three</li>\n</ul>\n", "\n* one\n* two\n* three\n"
+      assert_markdown "<ul>\n<li>one</li>\n<li>two</li>\n<li>three</li>\n</ul>\n",
+                      "\n* one\n* two\n* three\n"
     end
 
     should "convert ordered list" do
-      assert_markdown "<ol>\n<li>one</li>\n<li>two</li>\n<li>three</li>\n</ol>\n", "\n1. one\n2. two\n3. three\n"
+      assert_markdown "<ol>\n<li>one</li>\n<li>two</li>\n<li>three</li>\n</ol>\n",
+                      "\n1. one\n2. two\n3. three\n"
     end
 
     should "ignore empty unordered list items" do
-      assert_markdown "<ul>\n<li>one</li>\n<li></li>\n<li>three</li>\n</ul>\n", "\n* one\n* three\n", false
+      assert_markdown "<ul>\n<li>one</li>\n<li></li>\n<li>three</li>\n</ul>\n",
+                      "\n* one\n* three\n",
+                      false
     end
 
     should "ignore empty ordered list items" do
-      assert_markdown "<ol>\n<li>one</li>\n<li></li>\n<li>three</li>\n</ol>\n", "\n1. one\n3. three\n", false
+      assert_markdown "<ol>\n<li>one</li>\n<li></li>\n<li>three</li>\n</ol>\n",
+                      "\n1. one\n3. three\n",
+                      false
     end
 
     should "convert code blocks" do
       assert_markdown "<pre><code>This is a code block\ncontinued\n</code></pre>",
-        "\n    This is a code block\n    continued\n\n"
+                      "\n    This is a code block\n    continued\n\n"
     end
 
     context "anchors" do
@@ -67,8 +74,14 @@ class TestMcBeanMarkdown < Test::Unit::TestCase
       end
 
       should "convert <a> tags with titles to reference-style" do
-        assert_markdown "<p>Yes, magic helmet. And <a href=\"http://sample.com/\" title=\"Fudd\">I'll give you a sample</a>.</p>",
-          "\nYes, magic helmet. And [I'll give you a sample][Fudd].\n\n[Fudd]: http://sample.com/ \"Fudd\""
+        html     = "<p>Yes, magic helmet. And <a href=\"http://sample.com/\" title=\"Fudd\">I'll give you a sample</a>.</p>"
+        markdown = "\nYes, magic helmet. And [I'll give you a sample][Fudd].\n\n[Fudd]: http://sample.com/ \"Fudd\"\n"
+
+        # note peskily absent newline at end of document. sigh.
+        assert_equal(html, BlueCloth.new(markdown).to_html, "markdown roundtrip failed")
+        assert_equal(markdown, McBean.fragment(html).to_markdown, "fragment transformation failed")
+        assert_equal(Loofah::Helpers.remove_extraneous_whitespace("\n#{markdown}"),
+          McBean.document("<div>#{html}</div>").to_markdown, "document transformation failed")
       end
     end
   end
@@ -76,10 +89,9 @@ class TestMcBeanMarkdown < Test::Unit::TestCase
   private
 
   def assert_markdown html, markdown, roundtrip=true
-    if roundtrip
-      assert_equal html, BlueCloth.new(markdown).to_html, "markdown roundtrip failed"
-    end
-    assert_equal markdown, McBean.fragment(html).to_markdown, "fragment transformation failed"
-    assert_equal Loofah::Helpers.remove_extraneous_whitespace("\n#{markdown}\n"), McBean.document("<div>#{html}</div>").to_markdown, "document transformation failed"
+    assert_equal(html, BlueCloth.new(markdown).to_html, "markdown roundtrip failed") if roundtrip
+    assert_equal(markdown, McBean.fragment(html).to_markdown, "fragment transformation failed")
+    assert_equal(Loofah::Helpers.remove_extraneous_whitespace("\n#{markdown}\n"),
+      McBean.document("<div>#{html}</div>").to_markdown, "document transformation failed")
   end
 end
