@@ -1,6 +1,7 @@
 = McBean
 
 * http://github.com/flavorjones/mcbean
+* http://mcbean.heroku.com/
 
 == DESCRIPTION:
 
