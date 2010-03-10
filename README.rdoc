@@ -30,6 +30,11 @@ Or if you have an HTML document:
 
   McBean.document(your_html_string).to_markdown
 
+Also, +mcbean+ provides a command-line utility installed into your gem path:
+
+  $ mcbean /usr/lib/openoffice/licenses/LICENSE_en-GB.html
+  $ mcbean http://daringfireball.net/projects/markdown/syntax
+
 === Side Note: Fragments vs Documents
 
 Generally speaking, if you expect to have a DOCTYPE and a single root
