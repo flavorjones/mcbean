@@ -1,7 +1,7 @@
 require "loofah"
 
 class McBean
-  VERSION = "0.1.1"
+  VERSION = "0.1.2"
   REQUIRED_LOOFAH_VERSION = "0.4.7"
 
   attr_accessor :html
