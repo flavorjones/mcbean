@@ -46,7 +46,9 @@ class McBean
         when "br"
           new_text node, "\n"
         when "a"
-          if node['title']
+          if node['href'].nil?
+            new_text node, node.content
+          elsif node['title']
             unless @link_references
               @link_references = node.document.fragment("<div>\n</div>").children.first
               end_of_doc(node).add_next_sibling @link_references

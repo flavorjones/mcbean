@@ -82,6 +82,18 @@ class TestMcBeanMarkdown < Test::Unit::TestCase
           "\nYes, magic helmet. And [I'll give you a sample](http://sample.com/).\n"
       end
 
+      context "<a> tags without hrefs" do
+        should "be ignored" do
+          assert_markdown "<div><a name='link-target'>target title</a></div>",
+                          "\ntarget title\n",
+                          false
+
+          assert_markdown "<div><a id='link-target'>target title</a></div>",
+                          "\ntarget title\n",
+                          false
+        end
+      end
+
       context "<a> tags with titles" do
         should "convert fq urls to reference-style" do
           assert_markdown2 "<p>Yes, magic helmet. And <a href=\"http://sample.com/\" title=\"Fudd\">I'll give you a sample</a>.</p>",
