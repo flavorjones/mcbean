@@ -10,8 +10,8 @@ class TestMcBean < Test::Unit::TestCase
   context "cleanup" do
     should "prune unsafe tags" do
       result = McBean.fragment("<div>OK</div><script>BAD</script>").to_markdown
-      assert_match    /OK/, result
-      assert_no_match /BAD/, result
+      assert_match(    /OK/,  result)
+      assert_no_match( /BAD/, result)
     end
   end
 end

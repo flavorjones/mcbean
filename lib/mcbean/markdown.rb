@@ -43,6 +43,8 @@ class McBean
           else
             nil
           end
+        when "br"
+          new_text node, "\n"
         when "a"
           if node['title']
             unless @link_references

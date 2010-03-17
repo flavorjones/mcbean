@@ -67,6 +67,15 @@ class TestMcBeanMarkdown < Test::Unit::TestCase
                       "\n    This is a code block\n    continued\n\n"
     end
 
+    should "convert <br> tags to newlines" do
+      assert_markdown "<div>hello<br>there</div>",
+                      "\nhello\nthere\n",
+                      false
+      assert_markdown "<div>hello<br />there</div>",
+                      "\nhello\nthere\n",
+                      false
+    end
+
     context "anchors" do
       should "convert <a> tags" do
         assert_markdown "<p>Yes, magic helmet. And <a href=\"http://sample.com/\">I'll give you a sample</a>.</p>",
