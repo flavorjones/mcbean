@@ -6,8 +6,7 @@ require 'mcbean'
 
 unless ARGV[0]
   puts "USAGE: #{File.basename(__FILE__)} <file-or-url>"
-  puts
-  puts "McBean transforms HTML into Markdown for your reading pleasure."
+  puts "     McBean transforms HTML into Markdown for your reading pleasure."
   exit 1
 end
 
