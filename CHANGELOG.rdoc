@@ -1,11 +1,21 @@
 = Changelog
 
-== HEAD
+== 0.2.0
 
+* Converts Markdown to HTML (thanks to RDiscount). GH #2.
 * <br> elements are converted into newlines (markdown). GH #5
 * <a> elements without an 'href' attribute are not rendered as hyperlinks (markdown). GH #4
+
+== 0.1.2 (2010-03-10)
+
+* Command line utility "mcbean"
+* Demo site on Heroku
+
+== 0.1.1 (2010-03-09)
+
+* Better hyperlink handling
 
 == 0.1.0 (2010-03-09)
 
 * Happy Birthday!
-* Converts HTML documents into Markdown.
+* Converts HTML documents to Markdown.

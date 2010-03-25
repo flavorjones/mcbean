@@ -33,4 +33,3 @@ require "mcbean/markdown"
 if Loofah::VERSION < McBean::REQUIRED_LOOFAH_VERSION
   raise RuntimeError, "McBean requires Loofah #{McBean::REQUIRED_LOOFAH_VERSION} or later (currently #{Loofah::VERSION})"
 end
-
