@@ -1,6 +1,6 @@
 = Changelog
 
-== 0.2.0
+== 0.2.0 (2010-03-24)
 
 * Converts Markdown to HTML (thanks to RDiscount). GH #2.
 * <br> elements are converted into newlines (markdown). GH #5
