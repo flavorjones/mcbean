@@ -1,5 +1,10 @@
 = Changelog
 
+== HEAD
+
+* <br> elements are converted into newlines (markdown). GH #5
+* <a> elements without an 'href' attribute are not rendered as hyperlinks (markdown). GH #4
+
 == 0.1.0 (2010-03-09)
 
 * Happy Birthday!
