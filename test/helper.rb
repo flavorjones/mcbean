@@ -1,6 +1,8 @@
 require "test/unit"
 require "mcbean"
 require "shoulda"
+require "rr"
 
-gem "bluecloth", ">= 2.0"
-require "bluecloth"
+class Test::Unit::TestCase
+  include RR::Adapters::TestUnit
+end

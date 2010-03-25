@@ -1,6 +1,9 @@
-class McBean
+require 'rdiscount'
 
+class McBean
   class Markdownify < Loofah::Scrubber
+    Antidote = ::RDiscount # could conceivably be BlueCloth
+
     def initialize
       @direction = :bottom_up
       @link_references = nil

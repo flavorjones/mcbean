@@ -14,7 +14,9 @@ Hoe.spec 'mcbean' do
   self.readme_file      = "README.rdoc"
 
   extra_deps << ["loofah", ">= 0.4.7"]
+  extra_deps << ["rdiscount", ">= 1.3.4"]
   extra_dev_deps << ["shoulda", ">= 2.10"]
+  extra_dev_deps << ["rr", ">= 0.10.4"]
 end
 
 task :redocs => :fix_css

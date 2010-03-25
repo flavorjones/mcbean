@@ -17,6 +17,14 @@ class McBean
     mcbean.html = Loofah.document(string_or_io)
     mcbean
   end
+
+  def McBean.markdown(string_or_io)
+    if string_or_io.respond_to?(:read)
+      McBean::Markdownify::Antidote.new(string_or_io.read)
+    else
+      McBean::Markdownify::Antidote.new(string_or_io)
+    end
+  end
 end
 Mcbean = McBean
 
