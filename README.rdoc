@@ -3,37 +3,46 @@
 * http://github.com/flavorjones/mcbean
 * http://mcbean.heroku.com/
 
-== DESCRIPTION:
+== Description
 
-McBean transforms HTML into Markdown with the help of Loofah and Nokogiri.
+McBean converts HTML into Markdown, and Markdown into HTML (with the
+help of Loofah, Nokogiri and RDiscount).
 
-Its goal is to eventually be able to transform (with the help of other
-relevant gems) documents from HTML to Markdown to Textile, and
-anything in between. It will be the Sylvester McMonkey McBean of
-markup, placing stars onto the bellies of all kinds of document
-formats.
+Its goal is to eventually be able to transform documents from HTML to
+Markdown to Textile, and anything in between. It will be the Sylvester
+McMonkey McBean of markup, placing stars onto the bellies of all kinds
+of Sneetchy document formats.
 
 "You can't teach a Sneetch."
 
-== FEATURES/PROBLEMS:
+== Features / Problems
 
-* Transforms HTML into Markdown.
+* Transforms HTML into Markdown, and Markdown into HTML.
 * Doesn't do anything else yet.
 
-== SYNOPSIS:
+== Synopsis
 
-If you have an HTML fragment:
+If you have an HTML fragment, you can convert it into Markdown:
 
-  McBean.fragment(your_html_string).to_markdown
+  McBean.fragment(your_html).to_markdown
 
-Or if you have an HTML document:
+Or if you have an HTML document, you can convert it into Markdown:
 
-  McBean.document(your_html_string).to_markdown
+  McBean.document(your_html).to_markdown
+
+You can also convert Markdown into HTML (via RDiscount):
+
+  McBean.markdown(your_markdown).to_html
+
+Note that the parameter passed to +fragment+, +document+ and
++markdown+ can be either a String or an IO.
 
 Also, +mcbean+ provides a command-line utility installed into your gem path:
 
   $ mcbean /usr/lib/openoffice/licenses/LICENSE_en-GB.html
   $ mcbean http://daringfireball.net/projects/markdown/syntax
+
+You can try out McBean at the live demo site: http://mcbean.heroku.com
 
 === Side Note: Fragments vs Documents
 
@@ -41,15 +50,19 @@ Generally speaking, if you expect to have a DOCTYPE and a single root
 \&lt;html\&gt; node, you have a *document*. If you don't expect to
 have a single root node, you have a *fragment*.
 
-== REQUIREMENTS:
+== Requirements
 
 * Loofah 0.4.7 (and thusly Nokogiri)
 
-== INSTALL:
+== Install
 
 * sudo gem install mcbean
 
-== LICENSE:
+== Shout Outs
+
+Thanks to David Loren Parsons and Ryan Tomayko for RDiscount.
+
+== License
 
 (The MIT License)
 
