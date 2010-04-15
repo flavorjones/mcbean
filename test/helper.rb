@@ -1,8 +1,7 @@
-require "test/unit"
+require "minitest/autorun"
 require "mcbean"
-require "shoulda"
 require "rr"
 
-class Test::Unit::TestCase
+class MiniTest::Spec
   include RR::Adapters::TestUnit
 end
