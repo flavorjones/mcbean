@@ -19,11 +19,7 @@ class McBean
   end
 
   def McBean.markdown(string_or_io)
-    if string_or_io.respond_to?(:read)
-      McBean::Markdownify::Antidote.new(string_or_io.read)
-    else
-      McBean::Markdownify::Antidote.new(string_or_io)
-    end
+    McBean::Markdownify::Antidote.new string_or_io.respond_to?(:read) ? string_or_io.read : string_or_io
   end
 end
 Mcbean = McBean
