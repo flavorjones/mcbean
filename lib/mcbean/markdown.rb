@@ -1,6 +1,14 @@
 require 'rdiscount'
 
 class McBean
+  attr_accessor :markdown
+
+  def McBean.markdown(string_or_io)
+    mcbean = allocate
+    mcbean.markdown = McBean::Markdownify::Antidote.new string_or_io.respond_to?(:read) ? string_or_io.read : string_or_io
+    mcbean
+  end
+
   class Markdownify < Loofah::Scrubber
     Antidote = ::RDiscount # could conceivably be BlueCloth
 
@@ -94,4 +102,3 @@ class McBean
       html.dup.scrub!(:prune).scrub!(Markdownify.new).text(:encode_special_chars => false)
   end
 end
-

@@ -18,8 +18,10 @@ class McBean
     mcbean
   end
 
-  def McBean.markdown(string_or_io)
-    McBean::Markdownify::Antidote.new string_or_io.respond_to?(:read) ? string_or_io.read : string_or_io
+  def to_html
+    [html, markdown].each do |thing|
+      return thing.to_html if thing.respond_to?(:to_html)
+    end
   end
 end
 Mcbean = McBean

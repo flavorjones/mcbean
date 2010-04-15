@@ -15,7 +15,6 @@ Hoe.spec 'mcbean' do
 
   extra_deps << ["loofah", ">= 0.4.7"]
   extra_deps << ["rdiscount", ">= 1.3.4"]
-  extra_dev_deps << ["rr", ">= 0.10.4"]
   extra_dev_deps << ["minitest", ">= 1.6.0"]
 end
 
