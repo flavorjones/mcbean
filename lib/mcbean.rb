@@ -6,6 +6,8 @@ class McBean
 
   attr_accessor :html
 
+  private_class_method :new, :allocate
+
   def McBean.fragment(string_or_io)
     mcbean = allocate
     mcbean.html = Loofah.fragment(string_or_io)
@@ -19,6 +21,7 @@ class McBean
   end
 
   def to_html
+    # TODO markdown should not be hardcoded here. class variable modified by markdown.rb?
     [html, markdown].each do |thing|
       return thing.to_html if thing.respond_to?(:to_html)
     end
