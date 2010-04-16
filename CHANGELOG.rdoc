@@ -11,6 +11,7 @@ Features:
 Deprecations:
 
 * McBean.new and .allocate are now private. Use one of the constructors: .fragment, .document or .markdown.
+* McBean#html and #markdown accessors have been dropped.
 
 == 0.2.0 (2010-03-24)
 

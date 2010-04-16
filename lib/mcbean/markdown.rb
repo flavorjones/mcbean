@@ -1,14 +1,30 @@
 require 'rdiscount'
 
 class McBean
-  attr_accessor :markdown
+  attr_writer :__markdown__ # :nodoc:
 
   def McBean.markdown(string_or_io)
-    mcbean = allocate
-    mcbean.markdown = McBean::Markdownify::Antidote.new string_or_io.respond_to?(:read) ? string_or_io.read : string_or_io
+    mcbean = new
+    mcbean.__markdown__ = McBean::Markdownify::Antidote.new(string_or_io.respond_to?(:read) ? string_or_io.read : string_or_io)
     mcbean
   end
 
+  def to_markdown
+    __markdown__.text
+  end
+
+  def __markdown__ # :nodoc:
+    @__markdown__ ||= nil
+    unless @__markdown__
+      @__markdown__ = McBean::Markdownify::Antidote.new(
+                        Loofah::Helpers.remove_extraneous_whitespace(
+                          __html__.dup.scrub!(:escape).scrub!(Markdownify.new).text(:encode_special_chars => false)
+                      ))
+    end
+    @__markdown__
+  end
+
+  # :stopdoc:
   class Markdownify < Loofah::Scrubber
     Antidote = ::RDiscount # could conceivably be BlueCloth
 
@@ -96,9 +112,5 @@ class McBean
       (node.document.serialize_root || node.ancestors.last).children.last
     end
   end
-
-  def to_markdown
-    Loofah::Helpers.remove_extraneous_whitespace \
-      html.dup.scrub!(:prune).scrub!(Markdownify.new).text(:encode_special_chars => false)
-  end
+  # :startdoc:
 end

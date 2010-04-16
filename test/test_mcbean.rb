@@ -21,27 +21,27 @@ describe McBean do
 
   describe ".fragment" do
     it "sets #html to be a Loofah fragment" do
-      McBean.fragment("<h1>hello</h1>\n").html.must_be_instance_of Loofah::HTML::DocumentFragment
+      McBean.fragment("<h1>hello</h1>\n").__html__.must_be_instance_of Loofah::HTML::DocumentFragment
     end
   end
 
   describe ".document" do
     it "sets #html to be a Loofah document" do
-      McBean.document("<h1>hello</h1>\n").html.must_be_instance_of Loofah::HTML::Document
+      McBean.document("<h1>hello</h1>\n").__html__.must_be_instance_of Loofah::HTML::Document
     end
   end
 
   describe ".markdown" do
     describe "passed a string" do
       it "sets #markdown to be a Markdownify::Antidote" do
-        McBean.markdown("hello\n=====\n").markdown.must_be_instance_of McBean::Markdownify::Antidote
+        McBean.markdown("hello\n=====\n").__markdown__.must_be_instance_of McBean::Markdownify::Antidote
       end
     end
 
     describe "passed an IO" do
       it "sets #markdown to be a Markdownify::Antidote" do
         io = StringIO.new "hello\n=====\n"
-        McBean.markdown(io).markdown.must_be_instance_of McBean::Markdownify::Antidote
+        McBean.markdown(io).__markdown__.must_be_instance_of McBean::Markdownify::Antidote
       end
     end
   end
