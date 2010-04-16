@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 require File.dirname(__FILE__) + "/helper"
 
 describe McBean::Textilify do
@@ -33,7 +34,38 @@ describe McBean::Textilify do
   end
 
   describe "#to_textile" do
+    it "converts h1 tag" do
+      assert_textile "<h1>Foo</h1>", "\nh1. Foo\n"
+    end
 
+    it "converts h2 tag" do
+      assert_textile "<h2>Foo</h2>", "\nh2. Foo\n"
+    end
+
+    it "converts h3 tag" do
+      assert_textile "<h3>Foo</h3>", "\nh3. Foo\n"
+    end
+
+    it "converts h4 tag" do
+      assert_textile "<h4>Foo</h4>", "\nh4. Foo\n"
+    end
+
+    it "converts blockquote tag" do
+      assert_textile "<blockquote>\n<p>foo fazz<br />\nbizz buzz<br />\nwang wong</p>\n</blockquote>", "\nbq. foo fazz\nbizz buzz\nwang wong\n"
+    end
+
+    it "converts ul lists" do
+      html = "<ul>\n\t<li>foo</li>\n\t<li>wuxx</li>\n</ul>"
+      textile = "\n* foo\n* wuxx\n"
+      assert_textile html, textile
+    end
+  end
+
+  def assert_textile html, textile, roundtrip=true
+    assert_equal(html, McBean::Textilify::Antidote.new(textile).to_html, "textile roundtrip failed") if roundtrip
+    assert_equal(textile, McBean.fragment(html).to_textile, "fragment transformation failed")
+    assert_equal(Loofah::Helpers.remove_extraneous_whitespace("\n#{textile}\n"),
+      McBean.document("<div>#{html}</div>").to_textile, "document transformation failed")
   end
 
 end
