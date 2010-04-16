@@ -1,5 +1,17 @@
 = Changelog
 
+== HEAD
+
+Features:
+
+* McBean.markdown now sensibly returns a McBean instance, instead of a Markdownify::Antidote instance.
+* McBean#to_html now does the right thing when the instance is created via McBean.markdown.
+* McBean#to_html now entity-escapes unsafe and invalid HTML tags (thanks to Loofah).
+
+Deprecations:
+
+* McBean.new and .allocate are now private. Use one of the constructors: .fragment, .document or .markdown.
+
 == 0.2.0 (2010-03-24)
 
 * Converts Markdown to HTML (thanks to RDiscount). GH #2.
