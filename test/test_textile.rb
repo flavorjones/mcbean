@@ -34,6 +34,10 @@ describe McBean::Textilify do
   end
 
   describe "#to_textile" do
+    it "add whitespace around block elements" do
+      assert_textile "before<div>inner</div>after", "before\ninner\nafter", false
+    end
+
     it "converts h1 tag" do
       assert_textile "<h1>Foo</h1>", "\nh1. Foo\n"
     end
@@ -64,6 +68,31 @@ describe McBean::Textilify do
       html = "<ol>\n\t<li>foo</li>\n\t<li>wuxx</li>\n</ol>"
       textile = "\n# foo\n# wuxx\n"
       assert_textile html, textile
+    end
+
+    it "ignore empty unordered list items" do
+      assert_textile "<ul>\n<li>one</li>\n<li></li>\n<li>three</li>\n</ul>\n",
+        "\n* one\n* three\n",
+        false
+    end
+
+    it "ignore empty ordered list items" do
+      assert_textile "<ol>\n<li>one</li>\n<li></li>\n<li>three</li>\n</ol>\n",
+        "\n# one\n# three\n",
+        false
+    end
+
+    it "convert code blocks" do
+      assert_textile "<pre><code>This is a code block\ncontinued</code></pre>",
+        "\nbc. This is a code block\ncontinued\n"
+    end
+
+    it "convert <br> tags to newlines" do
+      assert_textile "<p>hello<br>there</p>", "\nhello\nthere\n", false
+      assert_textile "<p>hello<br />there</p>", "\nhello\nthere\n", false
+    end
+
+    describe "anchors" do
     end
   end
 

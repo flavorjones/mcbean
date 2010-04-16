@@ -64,6 +64,12 @@ class McBean
             fragment << "# #{li.text}" if li.text =~ /\S/
           end
           new_text node, "\n#{fragment.join("\n")}\n"
+        when "code"
+          if node.parent.name == "pre"
+            new_text node, node.content.sub(/^/,"bc. ")
+          else
+            nil
+          end
         else
           if Loofah::HashedElements::BLOCK_LEVEL[node.name]
             new_text node, "\n#{node.content}\n"
