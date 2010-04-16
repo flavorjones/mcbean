@@ -1,14 +1,26 @@
 require 'redcloth'
 
 class McBean
-  attr_writer :__textile__
+  attr_writer :__textile__ # :nodoc:
 
+  @@__formats__ << "textile"
+
+  ##
+  #  Create a McBean from a Textile document string (or IO object)
+  #
   def McBean.textile string_or_io
     mcbean = new
     mcbean.__textile__ = McBean::Textilify::Antidote.new(string_or_io.respond_to?(:read) ? string_or_io.read : string_or_io)
     mcbean
   end
 
+  ##
+  #  Generate a Textile string representation of the McBeaned document.
+  #
+  #  So you can convert documents in other formats to Textile as follows:
+  #
+  #    McBean.fragment(File.read(path_to_html_file)).to_textile
+  #
   def to_textile
     __textile__.to_s
   end

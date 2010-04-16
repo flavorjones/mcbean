@@ -3,12 +3,24 @@ require 'rdiscount'
 class McBean
   attr_writer :__markdown__ # :nodoc:
 
+  @@__formats__ << "markdown"
+
+  ##
+  #  Create a McBean from a Markdown document string (or IO object)
+  #
   def McBean.markdown(string_or_io)
     mcbean = new
     mcbean.__markdown__ = McBean::Markdownify::Antidote.new(string_or_io.respond_to?(:read) ? string_or_io.read : string_or_io)
     mcbean
   end
 
+  ##
+  #  Generate a Markdown string representation of the McBeaned document.
+  #
+  #  So you can convert documents in other formats to Markdown as follows:
+  #
+  #    McBean.fragment(File.read(path_to_html_file)).to_markdown
+  #
   def to_markdown
     __markdown__.text
   end

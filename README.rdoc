@@ -1,46 +1,51 @@
 = McBean
 
 * http://github.com/flavorjones/mcbean
-* http://mcbean.heroku.com
+* http://mcbean.heroku.com (live demo)
 
 == Description
 
-McBean converts HTML into Markdown, and Markdown into HTML (with the
-help of Loofah, Nokogiri and RDiscount).
+McBean can convert documents from one format to another. McBean currently supports:
 
-Its goal is to eventually be able to transform documents from HTML to
-Markdown to Textile, and anything in between. It will be the Sylvester
-McMonkey McBean of markup, placing stars onto the bellies of all kinds
-of Sneetchy document formats.
+* HTML
+* Markdown (a subset)
+* Textile (a subset)
 
-"You can't teach a Sneetch."
+with the help of Loofah, Nokogiri, RDiscount and RedCloth.
 
-== Features / Problems
+"You can't teach a Sneetch." -- Sylvester McMonkey McBean
 
-* Transforms HTML into Markdown, and Markdown into HTML.
-* Doesn't do anything else yet.
+== Features
+
+* Transforms HTML into Markdown, and Markdown into HTML (thanks to RDiscount).
+* Transforms HTML into Textile, and Textile into HTML (thanks to RedCloth).
+* Transforms Textile into Markdown, and Markdown into Textile.
+* Emitted HTML is sanitized (thanks to Loofah).
+* Fancy-pants command line utility, "mcbean".
+
+== Problems
+
+* Only supports a limited subset of Markdown and Textile. Patches welcome.
 
 == Synopsis
 
-If you have an HTML fragment, you can convert it into Markdown:
+Wrap your document (which can be either a String or an IO object):
 
-  McBean.fragment(your_html).to_markdown
+  mcbean = McBean.fragment(your_html_fragment)
+  mcbean = McBean.document(your_html_document)
+  mcbean = McBean.markdown(your_markdown)
+  mcbean = McBean.textile(your_textile)
 
-Or if you have an HTML document, you can convert it into Markdown:
+And then generate the desired markup format:
 
-  McBean.document(your_html).to_markdown
-
-You can also convert Markdown into HTML (via RDiscount):
-
-  McBean.markdown(your_markdown).to_html
-
-Note that the parameter passed to +fragment+, +document+ and
-+markdown+ can be either a String or an IO.
+  mcbean.to_html
+  mcbean.to_markdown
+  mcbean.to_textile
 
 Also, +mcbean+ provides a command-line utility installed into your gem path:
 
-  $ mcbean /usr/lib/openoffice/licenses/LICENSE_en-GB.html
-  $ mcbean http://daringfireball.net/projects/markdown/syntax
+  $ mcbean --html="http://en.wikipedia.org/wiki/The_Sneetches_and_Other_Stories" --to-markdown
+  $ mcbean --markdown="treetop-1.4.2/doc/grammar_composition.markdown" --to-textile
 
 You can try out McBean at the live demo site: http://mcbean.heroku.com
 
@@ -52,8 +57,9 @@ have a single root node, you have a *fragment*.
 
 == Requirements
 
-* Loofah 0.4.7 (and thusly Nokogiri)
-* RDiscount 1.3.4
+* Loofah >= 0.4.7 (and thusly Nokogiri)
+* RDiscount >= 1.3.4
+* RedCloth >= 4.0.0
 
 == Install
 
@@ -62,6 +68,8 @@ have a single root node, you have a *fragment*.
 == Shout Outs
 
 Thanks to David Loren Parsons and Ryan Tomayko for RDiscount.
+
+Thanks to Jason Garber for RedCloth.
 
 == License
 
