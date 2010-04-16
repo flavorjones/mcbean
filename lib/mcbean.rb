@@ -22,9 +22,8 @@ class McBean
 
   def to_html
     # TODO markdown should not be hardcoded here. class variable modified by markdown.rb?
-    [html, markdown].each do |thing|
-      return thing.to_html if thing.respond_to?(:to_html)
-    end
+    return html.scrub!(:prune).to_html  if html
+    return markdown.to_html             if markdown
   end
 end
 Mcbean = McBean
