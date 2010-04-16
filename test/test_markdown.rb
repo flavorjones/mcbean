@@ -169,15 +169,15 @@ describe McBean::Markdownify::Antidote do
 
   describe "given markdown with an unsafe tag" do
     it "escapes the tag" do
-      md = "hello\n=====\n\n<script>alert('ohai!');</script>\n\nLOL\n"
-      McBean.markdown(md).to_html.must_include "<body>\n<h1>hello</h1>\n\n&lt;script&gt;alert('ohai!');&lt;/script&gt;<p>LOL</p>\n</body>"
+      markdown = "hello\n=====\n\n<script>alert('ohai!');</script>\n\nLOL\n"
+      McBean.markdown(markdown).to_html.must_include "<body>\n<h1>hello</h1>\n\n&lt;script&gt;alert('ohai!');&lt;/script&gt;<p>LOL</p>\n</body>"
     end
   end
 
   describe "given markdown with an invalid tag" do
     it "escapes the tag" do
-      md = "hello\n=====\n\n<xyzzy>Adventure!</xyzzy>\n\nLOL\n"
-      McBean.markdown(md).to_html.must_match %r{<body>\n<h1>hello</h1>\n\n<p>&lt;xyzzy&gt;Adventure!&lt;/xyzzy&gt;</p>\n\n<p>LOL</p>\n</body>}
+      markdown = "hello\n=====\n\n<xyzzy>Adventure!</xyzzy>\n\nLOL\n"
+      McBean.markdown(markdown).to_html.must_match %r{<body>\n<h1>hello</h1>\n\n<p>&lt;xyzzy&gt;Adventure!&lt;/xyzzy&gt;</p>\n\n<p>LOL</p>\n</body>}
     end
   end
 end

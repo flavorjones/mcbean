@@ -13,9 +13,9 @@ class McBean
     __markdown__.text
   end
 
-  def __markdown__ # :nodoc:
+  def __markdown__ generate_from_html_if_necessary=true # :nodoc:
     @__markdown__ ||= nil
-    unless @__markdown__
+    if @__markdown__.nil? && generate_from_html_if_necessary
       @__markdown__ = McBean::Markdownify::Antidote.new(
                         Loofah::Helpers.remove_extraneous_whitespace(
                           __html__.dup.scrub!(:escape).scrub!(Markdownify.new).text(:encode_special_chars => false)

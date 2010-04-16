@@ -28,8 +28,12 @@ class McBean
     @__html__ ||= nil
     unless @__html__
       # TODO markdown should not be hardcoded here. class variable modified by markdown.rb?
-      if __markdown__
+      if __markdown__(false)
         @__html__ = Loofah.document(__markdown__.to_html)
+      elsif __textile__(false)
+        @__html__ = Loofah.document(__textile__.to_html)
+      else
+        raise RuntimeError
       end
     end
     @__html__
@@ -38,6 +42,7 @@ end
 Mcbean = McBean
 
 require "mcbean/markdown"
+require "mcbean/textile"
 
 if Loofah::VERSION < McBean::REQUIRED_LOOFAH_VERSION
   raise RuntimeError, "McBean requires Loofah #{McBean::REQUIRED_LOOFAH_VERSION} or later (currently #{Loofah::VERSION})"
