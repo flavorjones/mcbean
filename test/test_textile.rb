@@ -59,6 +59,12 @@ describe McBean::Textilify do
       textile = "\n* foo\n* wuxx\n"
       assert_textile html, textile
     end
+
+    it "converts ol lists" do
+      html = "<ol>\n\t<li>foo</li>\n\t<li>wuxx</li>\n</ol>"
+      textile = "\n# foo\n# wuxx\n"
+      assert_textile html, textile
+    end
   end
 
   def assert_textile html, textile, roundtrip=true

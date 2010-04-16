@@ -58,6 +58,12 @@ class McBean
             fragment << "* #{li.text}" if li.text =~ /\S/
           end
           new_text node, "\n#{fragment.join("\n")}\n"
+        when "ol"
+          fragment = []
+          node.xpath("./li").each do |li|
+            fragment << "# #{li.text}" if li.text =~ /\S/
+          end
+          new_text node, "\n#{fragment.join("\n")}\n"
         else
           if Loofah::HashedElements::BLOCK_LEVEL[node.name]
             new_text node, "\n#{node.content}\n"
