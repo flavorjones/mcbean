@@ -15,6 +15,7 @@ Hoe.spec 'mcbean' do
 
   self.extra_deps << ["loofah", ">= 0.4.7"]
   self.extra_deps << ["rdiscount", ">= 1.3.4"]
+  self.extra_deps << ["RedCloth", ">= 4.0.0"]
   self.extra_dev_deps << ["minitest", ">= 1.6.0"]
 
   self.testlib = :minitest
@@ -34,11 +35,6 @@ task :fix_css do
 
     .method-description p {
       margin-top                : .5em ;
-    }
-
-    #main ul, div#documentation ul {
-      list-style-type           : disc ! IMPORTANT ;
-      list-style-position       : inside ! IMPORTANT ;
     }
 
     h2 + ul {
