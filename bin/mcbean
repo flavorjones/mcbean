@@ -6,52 +6,48 @@ require 'mcbean'
 require 'getoptlong'
 
 SCRIPT = File.basename(__FILE__)
-
-OPTS = [
-  [ '--markdown',       '-m', GetoptLong::REQUIRED_ARGUMENT ],
-  [ '--html',           '-h', GetoptLong::REQUIRED_ARGUMENT ],
-  [ '--to-markdown',    '-M', GetoptLong::NO_ARGUMENT ],
-  [ '--to-html',        '-H', GetoptLong::NO_ARGUMENT ]
-]
-
 @input_format  = "html"
 @output_format = "markdown"
 @input_file    = nil
 
+OPTS = []
+McBean.formats.each do |format|
+  OPTS << [ "--#{format}", "-#{format[0,1]}", GetoptLong::REQUIRED_ARGUMENT ]
+  OPTS << [ "--to-#{format}", "-#{format[0,1].upcase}", GetoptLong::NO_ARGUMENT ]
+end
+
 def _usage
-  puts "USAGE: #{SCRIPT} [--<FROM-FORMAT>=]<FILE-OR-URL> [--to-<TO-FORMAT>]"
+  puts "USAGE: #{SCRIPT} [--<FROM_FORMAT>=]<FILE-OR-URL> [--to-<TO_FORMAT>]"
   puts
-  puts "     McBean transforms file formats for your reading pleasure."
+  puts "     McBean transforms a file from one format to another, for your reading pleasure."
   puts
   puts "     e.g.:"
-  puts "       #{SCRIPT} --html=http://en.wikipedia.org/wiki/The_Sneetches_and_Other_Stories --to-markdown"
-  puts "       #{SCRIPT} --markdown=sneetches.md --to-html"
+  puts "       #{SCRIPT} --html=\"http://en.wikipedia.org/wiki/The_Sneetches_and_Other_Stories\" --to-markdown"
+  puts "       #{SCRIPT} --markdown=\"sneetches.md\" --to-textile"
   puts
-  puts "     If no FROM-FORMAT option is specified, --#{@input_format} is assumed"
-  puts "     If no TO-FORMAT option is specified, --to-#{@output_format} is assumed"
+  puts "     If FROM_FORMAT option is not specified, --#{@input_format} is assumed"
+  puts "     If TO_FORMAT option is not specified, --to-#{@output_format} is assumed"
   puts
-  puts "     Shortcuts:"
+  puts "     Shortcuts / Supported Formats:"
   OPTS.each do |long, short, _|
     puts "       #{short} for #{long}"
   end
   exit 1
 end
 
-GetoptLong.new(*OPTS).each do |opt, arg|
-  case opt
-  when "--markdown"
-    @input_format = "markdown"
-    @input_file   = arg
-  when "--html"
-    @input_format = "html"
-    @input_file   = arg
-  when "--to-markdown"
-    @output_format = "markdown"
-  when "--to-html"
-    @output_format = "html"
-  else
-    _usage
+begin
+  GetoptLong.new(*OPTS).each do |opt, arg|
+    McBean.formats.each do |format|
+      if opt == "--#{format}"
+        @input_format = format
+        @input_file   = arg
+      elsif opt == "--to-#{format}"
+        @output_format = format
+      end
+    end
   end
+rescue
+  _usage
 end
 
 if @input_file.nil?
@@ -62,15 +58,10 @@ end
 mcbean = case @input_format
          when "html"
            McBean.document(open(@input_file))
-         when "markdown"
-           McBean.markdown(open(@input_file))
+         else
+           McBean.send(@input_format, open(@input_file))
          end
 
-puts case @output_format
-     when "html"
-       mcbean.to_html
-     when "markdown"
-       mcbean.to_markdown
-     end
+puts mcbean.send("to_#{@output_format}")
 
 exit 0
