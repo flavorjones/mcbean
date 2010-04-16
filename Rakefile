@@ -13,9 +13,11 @@ Hoe.spec 'mcbean' do
   self.history_file     = "CHANGELOG.rdoc"
   self.readme_file      = "README.rdoc"
 
-  extra_deps << ["loofah", ">= 0.4.7"]
-  extra_deps << ["rdiscount", ">= 1.3.4"]
-  extra_dev_deps << ["minitest", ">= 1.6.0"]
+  self.extra_deps << ["loofah", ">= 0.4.7"]
+  self.extra_deps << ["rdiscount", ">= 1.3.4"]
+  self.extra_dev_deps << ["minitest", ">= 1.6.0"]
+
+  self.testlib = :minitest
 end
 
 task :redocs => :fix_css
