@@ -49,10 +49,10 @@ describe McBean do
   describe "#to_html" do
     attr_accessor :mcbean
 
-    it "prunes unsafe tags" do
+    it "escapes unsafe tags" do
       result = McBean.fragment("<div>OK</div><script>BAD</script>").to_html
-      result.must_match %r{OK}
-      result.wont_match %r{BAD}
+      result.must_include "<div>OK</div>"
+      result.must_include "&lt;script&gt;BAD&lt;/script&gt;"
     end
 
     describe "on an instance created by .fragment" do

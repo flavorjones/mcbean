@@ -21,9 +21,13 @@ class McBean
   end
 
   def to_html
+    return html.scrub!(:escape).to_html if html
+
     # TODO markdown should not be hardcoded here. class variable modified by markdown.rb?
-    return html.scrub!(:prune).to_html  if html
-    return markdown.to_html             if markdown
+    if markdown
+      self.html = Loofah.document(markdown.to_html)
+      return to_html
+    end
   end
 end
 Mcbean = McBean

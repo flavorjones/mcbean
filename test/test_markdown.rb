@@ -130,11 +130,23 @@ describe McBean::Markdownify do
 end
 
 describe McBean::Markdownify::Antidote do
-  describe "given that RDiscount is already pretty well tested" do
-    describe "let's limit ourselves to a token test case" do
-      it "convert markdown into html" do
-        assert_equal "<h1>hello</h1>\n", McBean.markdown("hello\n=====\n").to_html
-      end
+  describe "given that RDiscount is already pretty well tested, let's limit ourselves to a token test case" do
+    it "convert markdown into html" do
+      McBean.markdown("hello\n=====\n").to_html.must_match %r{<body><h1>hello</h1></body>}
+    end
+  end
+
+  describe "given markdown with an unsafe tag" do
+    it "escapes the tag" do
+      md = "hello\n=====\n\n<script>alert('ohai!');</script>\n\nLOL\n"
+      McBean.markdown(md).to_html.must_include "<body>\n<h1>hello</h1>\n\n&lt;script&gt;alert('ohai!');&lt;/script&gt;<p>LOL</p>\n</body>"
+    end
+  end
+
+  describe "given markdown with an invalid tag" do
+    it "escapes the tag" do
+      md = "hello\n=====\n\n<xyzzy>Adventure!</xyzzy>\n\nLOL\n"
+      McBean.markdown(md).to_html.must_match %r{<body>\n<h1>hello</h1>\n\n<p>&lt;xyzzy&gt;Adventure!&lt;/xyzzy&gt;</p>\n\n<p>LOL</p>\n</body>}
     end
   end
 end
