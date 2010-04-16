@@ -1,6 +1,22 @@
 require File.dirname(__FILE__) + "/helper"
 
 describe McBean::Markdownify do
+  describe "#to_html" do
+    attr_accessor :mcbean
+
+    describe "on an instance created by .markdown" do
+      before do
+        @mcbean = McBean.markdown "ohai!\n=====\n"
+      end
+
+      it "returns an html string" do
+        html = mcbean.to_html
+        html.must_be_instance_of String
+        html.must_match %r{<h1>ohai!</h1>}
+      end
+    end
+  end
+
   describe "#to_markdown" do
     it "add whitespace around block elements" do
       assert_markdown "before<div>inner</div>after", "before\ninner\nafter", false

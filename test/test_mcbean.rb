@@ -78,18 +78,5 @@ describe McBean do
         html.must_match %r{<div>ohai!</div>}
       end
     end
-
-    # TODO should be in test_markdown.rb
-    describe "on an instance created by .markdown" do
-      before do
-        @mcbean = McBean.markdown "ohai!\n=====\n"
-      end
-
-      it "returns an html string" do
-        html = mcbean.to_html
-        html.must_be_instance_of String
-        html.must_match %r{<h1>ohai!</h1>}
-      end
-    end
   end
 end
