@@ -1,12 +1,13 @@
 .autotest
 CHANGELOG.rdoc
-History.txt
 Manifest.txt
 README.rdoc
 Rakefile
 bin/mcbean
 lib/mcbean.rb
 lib/mcbean/markdown.rb
+lib/mcbean/textile.rb
 test/helper.rb
 test/test_markdown.rb
 test/test_mcbean.rb
+test/test_textile.rb
