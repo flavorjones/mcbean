@@ -1,6 +1,21 @@
 require File.dirname(__FILE__) + "/helper"
 
 describe McBean::Markdownify do
+  describe ".markdown" do
+    describe "passed a string" do
+      it "sets #__markdown__ to be a Markdownify::Antidote" do
+        McBean.markdown("hello\n=====\n").__markdown__.must_be_instance_of McBean::Markdownify::Antidote
+      end
+    end
+
+    describe "passed an IO" do
+      it "sets #__markdown__ to be a Markdownify::Antidote" do
+        io = StringIO.new "hello\n=====\n"
+        McBean.markdown(io).__markdown__.must_be_instance_of McBean::Markdownify::Antidote
+      end
+    end
+  end
+
   describe "#to_html" do
     attr_accessor :mcbean
 
