@@ -48,8 +48,6 @@ class McBean
           new_text node, "\nh4. #{node.content}\n"
         when "blockquote"
           new_text node, "\nbq. #{node.content.gsub(/\n\n/, "\n").sub(/^\n/,'')}"
-        when "br"
-          new_text node, "\n"
         when "li"
           nil # handled by parent list tag
         when "ul"
@@ -69,6 +67,16 @@ class McBean
             new_text node, node.content.sub(/^/,"bc. ")
           else
             nil
+          end
+        when "br"
+          new_text node, "\n"
+        when "a"
+          if node['href'].nil?
+            new_text node, node.content
+          elsif node['title']
+            new_text node, %Q{["#{node.text} (#{node['title']})":#{node['href']}]}
+          else
+            new_text node, %Q{["#{node.text}":#{node['href']}]}
           end
         else
           if Loofah::HashedElements::BLOCK_LEVEL[node.name]

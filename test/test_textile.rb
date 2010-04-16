@@ -34,7 +34,7 @@ describe McBean::Textilify do
   end
 
   describe "#to_textile" do
-    it "add whitespace around block elements" do
+    it "adds whitespace around block elements" do
       assert_textile "before<div>inner</div>after", "before\ninner\nafter", false
     end
 
@@ -70,29 +70,52 @@ describe McBean::Textilify do
       assert_textile html, textile
     end
 
-    it "ignore empty unordered list items" do
+    it "ignores empty unordered list items" do
       assert_textile "<ul>\n<li>one</li>\n<li></li>\n<li>three</li>\n</ul>\n",
         "\n* one\n* three\n",
         false
     end
 
-    it "ignore empty ordered list items" do
+    it "ignores empty ordered list items" do
       assert_textile "<ol>\n<li>one</li>\n<li></li>\n<li>three</li>\n</ol>\n",
         "\n# one\n# three\n",
         false
     end
 
-    it "convert code blocks" do
+    it "converts code blocks" do
       assert_textile "<pre><code>This is a code block\ncontinued</code></pre>",
         "\nbc. This is a code block\ncontinued\n"
     end
 
-    it "convert <br> tags to newlines" do
+    it "converts <br> tags to newlines" do
       assert_textile "<p>hello<br>there</p>", "\nhello\nthere\n", false
       assert_textile "<p>hello<br />there</p>", "\nhello\nthere\n", false
     end
 
     describe "anchors" do
+      it "converts <a> tags" do
+        assert_textile "<p>Yes, magic helmet. And <a href=\"http://sample.com/\">I will give you a sample</a>.</p>",
+          %Q{\nYes, magic helmet. And ["I will give you a sample":http://sample.com/].\n}
+      end
+
+      describe "<a> tags without hrefs" do
+        it "ignores them" do
+          assert_textile "<div><a name='link-target'>target title</a></div>",
+            "\ntarget title\n",
+            false
+
+          assert_textile "<div><a id='link-target'>target title</a></div>",
+            "\ntarget title\n",
+            false
+        end
+      end
+
+      describe "<a> tags with titles" do
+        it "include the title" do
+          assert_textile %Q{<p>Yes, magic helmet. And <a href="http://sample.com/" title="Fudd">I will give you a sample</a>.</p>},
+            %Q{\nYes, magic helmet. And ["I will give you a sample (Fudd)":http://sample.com/].\n}, false
+        end
+      end
     end
   end
 
