@@ -5,6 +5,8 @@ gem 'hoe', '>= 2.5.0'
 require 'hoe'
 
 Hoe.plugin :git
+Hoe.plugin :gemspec
+Hoe.plugin :bundler
 
 Hoe.spec 'mcbean' do
   developer "Mike Dalessio", "mike.dalessio@gmail.com"
@@ -17,6 +19,9 @@ Hoe.spec 'mcbean' do
   self.extra_deps << ["rdiscount", ">= 1.3.4"]
   self.extra_deps << ["RedCloth", ">= 4.0.0"]
   self.extra_dev_deps << ["minitest", ">= 1.6.0"]
+  self.extra_dev_deps << ["hoe-git"]
+  self.extra_dev_deps << ["hoe-gemspec"]
+  self.extra_dev_deps << ["hoe-bundler"]
 
   self.testlib = :minitest
 end
