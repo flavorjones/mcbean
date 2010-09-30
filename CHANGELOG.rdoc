@@ -1,6 +1,12 @@
 = Changelog
 
-== HEAD
+== 0.4.0 (2010-09-30)
+
+Features:
+
+* Support for Creole (wiki format)
+
+== 0.3.0 (2010-04-16)
 
 Features:
 

@@ -11,37 +11,47 @@ McBean can convert documents from one format to another. McBean currently suppor
 * HTML
 * Markdown (a subset)
 * Textile (a subset)
+* Creole (a subset)
 
-with the help of Loofah, Nokogiri, RDiscount and RedCloth.
+with the help of Loofah, Nokogiri, RDiscount, RedCloth and Creole.
 
 "You can't teach a Sneetch." -- Sylvester McMonkey McBean
 
 == Features
 
-* Transforms HTML into Markdown, and Markdown into HTML (thanks to RDiscount).
-* Transforms HTML into Textile, and Textile into HTML (thanks to RedCloth).
-* Transforms Textile into Markdown, and Markdown into Textile.
+* Transforms HTML into Markdown, and Markdown into HTML (with help from RDiscount).
+* Transforms HTML into Textile, and Textile into HTML (with help from RedCloth).
+* Transforms HTML into Creole, and Creole into HTML (with help from Creole).
+* Textile <-> Markdown
+* Textile <-> Creole
+* Creole <-> Markdown
 * Emitted HTML is sanitized (thanks to Loofah).
 * Fancy-pants command line utility, "mcbean".
 
 == Problems
 
-* Only supports a limited subset of Markdown and Textile. Patches welcome.
+* Only supports a limited subset of Markdown, Textile and Creole. Patches welcome.
 
 == Synopsis
 
 Wrap your document (which can be either a String or an IO object):
 
-  mcbean = McBean.fragment(your_html_fragment)
-  mcbean = McBean.document(your_html_document)
-  mcbean = McBean.markdown(your_markdown)
-  mcbean = McBean.textile(your_textile)
+  mcbean = McBean.fragment your_html_fragment
+or
+  mcbean = McBean.document your_html_document
+or
+  mcbean = McBean.markdown your_markdown
+or
+  mcbean = McBean.textile your_textile
+or
+  mcbean = McBean.creole your_creole
 
 And then generate the desired markup format:
 
   mcbean.to_html
   mcbean.to_markdown
   mcbean.to_textile
+  mcbean.to_creole
 
 Also, +mcbean+ provides a command-line utility installed into your gem path:
 
@@ -59,8 +69,9 @@ have a single root node, you have a *fragment*.
 == Requirements
 
 * Loofah >= 0.4.7 (and thusly Nokogiri)
-* RDiscount >= 1.3.4
-* RedCloth >= 4.0.0
+* RDiscount >= 1.6.0
+* RedCloth >= 4.2.0
+* Creole >= 0.3.7
 
 == Install
 
@@ -71,6 +82,8 @@ have a single root node, you have a *fragment*.
 Thanks to David Loren Parsons and Ryan Tomayko for RDiscount.
 
 Thanks to Jason Garber for RedCloth.
+
+Thanks to Lars Christensen and Daniel Mendler for Creole.
 
 == License
 
