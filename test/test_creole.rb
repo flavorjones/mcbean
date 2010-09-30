@@ -63,26 +63,28 @@ describe McBean::Creolize do
 
     it "converts ul lists" do
       html = "<ul><li>foo</li><li>wuxx</li></ul>"
-      creole = "\n* foo\n* wuxx\n"
-      assert_creole html, creole
+      # leading space used for moinmoin compatibility
+      creole = "\n * foo\n * wuxx\n"
+      assert_equal creole, McBean.fragment(html).to_creole
     end
 
     it "converts ol lists" do
       html = "<ol><li>foo</li><li>wuxx</li></ol>"
-      creole = "\n# foo\n# wuxx\n"
-      assert_creole html, creole
+      # leading space used for moinmoin compatibility
+      creole = "\n # foo\n # wuxx\n"
+      assert_equal creole, McBean.fragment(html).to_creole
     end
 
     it "ignores empty unordered list items" do
-      assert_creole "<ul>\n<li>one</li>\n<li></li>\n<li>three</li>\n</ul>\n",
-        "\n* one\n* three\n",
-        false
+      assert_equal \
+        McBean.fragment("<ul>\n<li>one</li>\n<li></li>\n<li>three</li>\n</ul>\n").to_creole,
+        "\n * one\n * three\n"
     end
 
     it "ignores empty ordered list items" do
-      assert_creole "<ol>\n<li>one</li>\n<li></li>\n<li>three</li>\n</ol>\n",
-        "\n# one\n# three\n",
-        false
+      assert_equal \
+        McBean.fragment("<ol>\n<li>one</li>\n<li></li>\n<li>three</li>\n</ol>\n").to_creole,
+        "\n # one\n # three\n"
     end
 
     it "converts pre/code blocks" do

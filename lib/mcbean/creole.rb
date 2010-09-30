@@ -80,13 +80,13 @@ class McBean
         when "ul"
           fragment = []
           node.xpath("./li").each do |li|
-            fragment << "* #{li.text}" if li.text =~ /\S/
+            fragment << " * #{li.text}" if li.text =~ /\S/
           end
           new_text node, "\n#{fragment.join("\n")}\n"
         when "ol"
           fragment = []
           node.xpath("./li").each do |li|
-            fragment << "# #{li.text}" if li.text =~ /\S/
+            fragment << " # #{li.text}" if li.text =~ /\S/
           end
           new_text node, "\n#{fragment.join("\n")}\n"
         when "tt"
