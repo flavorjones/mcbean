@@ -83,8 +83,8 @@ describe McBean::Textilify do
     end
 
     it "converts code blocks" do
-      assert_textile "<pre><code>This is a code block\ncontinued</code></pre>",
-        "\nbc. This is a code block\ncontinued\n"
+      assert_textile "<pre><code>This is a code block\ncontinued\n</code></pre>",
+        "\nbc. This is a code block\ncontinued\n\n", false
     end
 
     it "converts <br> tags to newlines" do
@@ -125,7 +125,6 @@ describe McBean::Textilify do
     assert_equal(Loofah::Helpers.remove_extraneous_whitespace("\n#{textile}\n"),
       McBean.document("<div>#{html}</div>").to_textile, "document transformation failed")
   end
-
 end
 
 describe McBean::Textilify::Antidote do

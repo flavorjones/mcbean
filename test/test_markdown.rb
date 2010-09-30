@@ -55,7 +55,7 @@ describe McBean::Markdownify do
 
     it "convert blockquote tag" do
       assert_markdown "<blockquote><p>Hello\nGoodbye</p></blockquote>",
-      "> Hello\n> Goodbye\n"
+      "> Hello\n> Goodbye"
     end
 
     #     it "convert nested blockquote tag" do

@@ -16,8 +16,8 @@ Hoe.spec 'mcbean' do
   self.readme_file      = "README.rdoc"
 
   self.extra_deps << ["loofah", ">= 0.4.7"]
-  self.extra_deps << ["rdiscount", ">= 1.3.4"]
-  self.extra_deps << ["RedCloth", ">= 4.0.0"]
+  self.extra_deps << ["rdiscount", ">= 1.6.0"]
+  self.extra_deps << ["RedCloth", ">= 4.2.0"]
   self.extra_dev_deps << ["minitest", ">= 1.6.0"]
   self.extra_dev_deps << ["hoe-git"]
   self.extra_dev_deps << ["hoe-gemspec"]
