@@ -5,9 +5,12 @@ README.rdoc
 Rakefile
 bin/mcbean
 lib/mcbean.rb
+lib/mcbean/creole.rb
 lib/mcbean/markdown.rb
 lib/mcbean/textile.rb
+mcbean.gemspec
 test/helper.rb
+test/test_creole.rb
 test/test_markdown.rb
 test/test_mcbean.rb
 test/test_textile.rb
