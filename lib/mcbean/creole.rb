@@ -89,15 +89,16 @@ class McBean
             fragment << "# #{li.text}" if li.text =~ /\S/
           end
           new_text node, "\n#{fragment.join("\n")}\n"
+        when "tt"
+          new_text node, "{{{#{node.content}}}}"
         when "code"
           if node.parent.name == "pre"
             new_text node, node.content
           else
-            nil
+            new_text node, "{{{#{node.content}}}}"
           end
         when "pre"
           new_text node, "\n{{{\n#{node.content}\n}}}\n"
-          
         when "br"
           new_text node, "\\\\"
         when "a"

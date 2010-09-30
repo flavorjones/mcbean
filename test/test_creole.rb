@@ -81,9 +81,19 @@ describe McBean::Creolize do
         false
     end
 
-    it "converts code blocks" do
+    it "converts pre/code blocks" do
       assert_creole "<pre><code>This is a code block\ncontinued</code></pre>",
         "\n{{{\nThis is a code block\ncontinued\n}}}\n", false
+    end
+
+    it "converts code blocks" do
+      assert_creole "<code>This is code</code>",
+        "{{{This is code}}}", false
+    end
+
+    it "converts tt blocks" do
+      assert_creole "<p>hello <tt>This is tt</tt> goodbye</p>",
+        "\nhello {{{This is tt}}} goodbye\n"
     end
 
     it "converts pre blocks" do
