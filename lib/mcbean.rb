@@ -7,7 +7,7 @@ require "loofah"
 #
 class McBean
   # Current version of McBean
-  VERSION = "0.3.0"
+  VERSION = "0.4.0"
 
   # Minimum required version of Loofah
   REQUIRED_LOOFAH_VERSION = "0.4.7"
