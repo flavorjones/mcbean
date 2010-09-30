@@ -66,13 +66,13 @@ class McBean
       replacement_killer = \
         case node.name
         when "h1"
-          new_text node, "\n= #{node.content} =\n"
+          new_text node, "\n= #{node.content.gsub("\n"," ")} =\n"
         when "h2"
-          new_text node, "\n== #{node.content} ==\n"
+          new_text node, "\n== #{node.content.gsub("\n"," ")} ==\n"
         when "h3"
-          new_text node, "\n=== #{node.content} ===\n"
+          new_text node, "\n=== #{node.content.gsub("\n"," ")} ===\n"
         when "h4"
-          new_text node, "\n==== #{node.content} ====\n"
+          new_text node, "\n==== #{node.content.gsub("\n"," ")} ====\n"
         # when "blockquote"
         #   new_text node, "\nbq. #{node.content.gsub(/\n\n/, "\n").sub(/^\n/,'')}"
         when "li"

@@ -41,6 +41,10 @@ describe McBean::Creolize do
       assert_creole "<h1>Foo</h1>", "\n= Foo =\n"
     end
 
+    it "removes newlines from header tags" do
+      assert_creole "<h1>Foo\nBar</h1>", "\n= Foo Bar =\n", false
+    end
+
     it "converts h2 tag" do
       assert_creole "<h2>Foo</h2>", "\n== Foo ==\n"
     end
