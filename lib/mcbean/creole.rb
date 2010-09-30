@@ -91,6 +91,12 @@ class McBean
           new_text node, "\n#{fragment.join("\n")}\n"
         when "tt"
           new_text node, "{{{#{node.content}}}}"
+        when "b", "strong"
+          new_text node, "**#{node.content}**"
+        when "i", "em"
+          new_text node, "//#{node.content}//"
+        when "hr"
+          new_text node, "\n----\n"
         when "code"
           if node.parent.name == "pre"
             new_text node, node.content

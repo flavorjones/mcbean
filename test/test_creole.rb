@@ -102,6 +102,26 @@ describe McBean::Creolize do
         "\nhello {{{This is tt}}} goodbye\n"
     end
 
+    it "converts b tag" do
+      assert_creole "<p>hello <b>there</b> pilgrim</p>", "\nhello **there** pilgrim\n", false
+    end
+
+    it "converts strong tag" do
+      assert_creole "<p>hello <strong>there</strong> pilgrim</p>", "\nhello **there** pilgrim\n"
+    end
+
+    it "converts i tag" do
+      assert_creole "<p>hello <i>there</i> pilgrim</p>", "\nhello //there// pilgrim\n", false
+    end
+
+    it "converts em tag" do
+      assert_creole "<p>hello <em>there</em> pilgrim</p>", "\nhello //there// pilgrim\n"
+    end
+
+    it "converts hr tag" do
+      assert_creole "<p>hello</p><hr/><p>there</p>", "\nhello\n\n----\n\nthere\n"
+    end
+
     it "converts pre blocks" do
       assert_creole "<pre>This is a pre block\ncontinued</pre>",
         "\n{{{\nThis is a pre block\ncontinued\n}}}\n"
